@@ -1,6 +1,6 @@
 # seashells
 
-## cellular automata
+cellular automata
 
 `> seashells rule30 500`
 
