@@ -1,7 +1,8 @@
 module Main where
 
-import           Data.List  (lookup)
-import           Data.Maybe (fromJust)
+import           Data.List      (lookup)
+import           Data.Maybe     (fromJust)
+import           Graphics.Gloss
 
 data Cell = O | X deriving (Eq)
 
@@ -51,8 +52,16 @@ evolve f w n = take n $ iterate (once f) w
 showWorld :: World -> String
 showWorld = concatMap show
 
-display :: [World] -> IO ()
-display = mapM_ (putStrLn . showWorld)
+displayWorld :: [World] -> IO ()
+displayWorld = mapM_ (putStrLn . showWorld)
 
 test :: IO ()
-test = display $ evolve rule30 (alone 170) 500
+test = displayWorld testHist
+
+testHist = evolve rule30 (alone 170) 500
+
+main = display (InWindow "Nice Window" (200, 200) (10, 10)) white pic
+
+sqr = rectangleSolid 20 20
+
+pic = Pictures [Translate (-50) (-50) sqr, circle 80]
